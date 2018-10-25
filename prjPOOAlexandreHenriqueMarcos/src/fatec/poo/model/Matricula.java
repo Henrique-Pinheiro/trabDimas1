@@ -7,6 +7,8 @@ public class Matricula {
     private String data;
     private int qtdeFaltas;
     private double nota;
+    private AVista aVista;
+    private APrazo aPrazo;
 
     public Matricula(String data) {
         this.data = data;

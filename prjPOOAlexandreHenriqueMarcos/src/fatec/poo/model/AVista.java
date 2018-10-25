@@ -3,17 +3,13 @@ package fatec.poo.model;
 /**
  * @author 0030481713030
  */
-public class AVista extends Matricula{
+public class AVista {
     
     private double valor;
     private int agencia;
     private int nCheque;
     private String preData;
     
-    public AVista(String data) {
-        super(data);
-    }
-
     public void setValor(double valor) {
         this.valor = valor;
     }

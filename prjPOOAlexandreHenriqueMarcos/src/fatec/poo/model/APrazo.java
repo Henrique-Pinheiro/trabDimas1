@@ -4,16 +4,12 @@ package fatec.poo.model;
  *
  * @author 0030481713030
  */
-public class APrazo extends Matricula{
+public class APrazo {
     
     private double valor;
     private String dtVencimento;
     private double taxaJuros;
     private int qtdMensalidade;
-    
-    public APrazo(String data) {
-        super(data);
-    }
 
     public void setValor(double valor) {
         this.valor = valor;
