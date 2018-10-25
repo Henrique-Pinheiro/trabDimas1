@@ -9,6 +9,7 @@ public class Matricula {
     private double nota;
     private AVista aVista;
     private APrazo aPrazo;
+    private Aluno aluno;
 
     public Matricula(String data) {
         this.data = data;
@@ -23,5 +24,10 @@ public class Matricula {
     }
     
     public void emitirCarne(){
+    }
+    
+    public void setAluno(Aluno a){
+        aluno = a;
+        a.setMatricula(this);
     }
 }
