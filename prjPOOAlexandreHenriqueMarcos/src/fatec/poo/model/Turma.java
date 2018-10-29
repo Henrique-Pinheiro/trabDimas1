@@ -11,6 +11,8 @@ public class Turma {
     private int qtdVagas;
     private String observacoes;
     private Curso curso;
+    private Instrutor instrutor;
+    private ArrayList<Matricula> matriculas;
 
     public Turma(String siglaTurma, String descricao) {
         this.siglaTurma = siglaTurma;
@@ -47,6 +49,10 @@ public class Turma {
 
     public Curso getCurso() {
         return curso;
+    }
+
+    public void setInstrutor(Instrutor instrutor) {
+        this.instrutor = instrutor;
     }
     
     public void EmitirListaFrequencia(){

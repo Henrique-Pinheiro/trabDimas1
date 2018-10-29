@@ -7,9 +7,11 @@ public class Matricula {
     private String data;
     private int qtdeFaltas;
     private double nota;
-    private AVista aVista;
+    private String tipoMatricula;
     private APrazo aPrazo;
+    private AVista aVista;
     private Aluno aluno;
+    private Turma turma;
 
     public Matricula(String data) {
         this.data = data;
@@ -25,9 +27,14 @@ public class Matricula {
     
     public void emitirCarne(){
     }
-    
+
+    public void setTipoMatricula(String tipoMatricula) {
+        this.tipoMatricula = tipoMatricula.toLowerCase();
+    }
+
     public void setAluno(Aluno a){
         aluno = a;
         a.setMatricula(this);
     }
+    
 }
