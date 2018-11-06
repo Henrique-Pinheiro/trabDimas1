@@ -179,7 +179,11 @@ public class GuiAluno extends javax.swing.JFrame {
         jLabel16.setText("Celular");
         jLabel16.setName("lblCelular"); // NOI18N
 
-        jFormattedTextField1.setFormatterFactory(###.###.###-##);
+        try {
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jFormattedTextField1.setName("txtCPF"); // NOI18N
         jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,7 +196,11 @@ public class GuiAluno extends javax.swing.JFrame {
         jFormattedTextField2.setName("txtDataNascto"); // NOI18N
 
         jFormattedTextField3.setEditable(false);
-        jFormattedTextField3.setFormatterFactory(#####-###);
+        try {
+            jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jFormattedTextField3.setName("txtCEP"); // NOI18N
         jFormattedTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,11 +209,19 @@ public class GuiAluno extends javax.swing.JFrame {
         });
 
         jFormattedTextField4.setEditable(false);
-        jFormattedTextField4.setFormatterFactory((##)####-####);
+        try {
+            jFormattedTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jFormattedTextField4.setName("txtTelRes"); // NOI18N
 
         jFormattedTextField5.setEditable(false);
-        jFormattedTextField5.setFormatterFactory((##)#####-####);
+        try {
+            jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jFormattedTextField5.setName("txtCelular"); // NOI18N
         jFormattedTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
