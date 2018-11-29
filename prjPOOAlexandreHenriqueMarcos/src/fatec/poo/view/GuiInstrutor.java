@@ -5,6 +5,13 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoInstrutor;
+import fatec.poo.model.Instrutor;
+import fatec.poo.model.Pessoa;
+import java.sql.DriverManager;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 0030481713030
@@ -55,7 +62,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        chcbxEstado = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -72,6 +79,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
@@ -87,6 +99,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("CPF");
 
@@ -153,7 +170,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
         jLabel15.setText("Estado");
 
-        jComboBox2.setEnabled(false);
+        chcbxEstado.setEnabled(false);
 
         jLabel14.setText("Tel. Res");
 
@@ -224,19 +241,21 @@ public class GuiInstrutor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNome)
-                                    .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                                    .addComponent(txtBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                                    .addComponent(txtEmail))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel10)
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel14)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtNome)
+                                            .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                            .addComponent(txtBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                            .addComponent(txtEmail))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel10)
+                                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel14)))
                                     .addComponent(jLabel16))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +279,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(chcbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,7 +334,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(chcbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel14)
                         .addComponent(mtxtTelResidencial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -363,9 +382,85 @@ public class GuiInstrutor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFormacaoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+       String teste;
+        teste = mtxtCpf.getText();
+        System.out.println(teste);
+        String formatedCpf = mtxtCpf.getText().replace(".", "");
+        formatedCpf = formatedCpf.replace("-", "");
+        System.err.print(formatedCpf);
+        if (Pessoa.validarCPF(mtxtCpf.getText()) == false){
+            JOptionPane.showMessageDialog (null, "CPF Inválido", "Erro", JOptionPane.INFORMATION_MESSAGE);
+            
+       instrutor = null;
+       instrutor = daoInstrutor.consultar(mtxtCpf.getText());
+       
+       if (instrutor == null){
+           mtxtCpf.setEnabled(false);
+           txtNome.setEnabled(true);
+           mtxtDataNasc.setEnabled(true);
+           chcbxSexo.setEnabled(true);
+           chcbxEstaCivil.setEnabled(true);
+           txtEndereco.setEnabled(true);
+           txtNumero.setEnabled(true);
+           txtBairro.setEnabled(true);
+           mtxtCep.setEnabled(true);
+           txtCidade.setEnabled(true);
+           chcbxEstado.setEnabled(true);
+           mtxtTelResidencial.setEnabled(true);
+           mtxtTelCelular.setEnabled(true);
+           txtFormacao.setEnabled(true);
+           txtAreaAtuacao.setEnabled(true);
+           txtEmail.setEnabled(true);
+           txtNome.requestFocus();
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(true);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+       }
+       else{
+          txtNome.setText(instrutor.getNome());
+       
+          mtxtCpf.setEnabled(false); 
+          txtNome.setEnabled(true);
+          mtxtDataNasc.setEnabled(true);
+          chcbxSexo.setEnabled(true);
+          chcbxEstaCivil.setEnabled(true);
+          txtEndereco.setEnabled(true);
+          txtNumero.setEnabled(true);
+          txtBairro.setEnabled(true);
+          mtxtCep.setEnabled(true);
+          txtCidade.setEnabled(true);
+          chcbxEstado.setEnabled(true);
+          mtxtTelResidencial.setEnabled(true);
+          mtxtTelCelular.setEnabled(true);
+          txtFormacao.setEnabled(true);
+          txtAreaAtuacao.setEnabled(true);
+          txtEmail.setEnabled(true);
+          
+          txtNome.requestFocus();
+          
+          btnConsultar.setEnabled(false);
+          btnInserir.setEnabled(false);
+          btnAlterar.setEnabled(true);
+          btnExcluir.setEnabled(true);
+       }
+       }
+//        
+//        if (Pessoa.validarCPF(mtxtCpf.getText()) == false){
+//            JOptionPane.showMessageDialog (null, "CPF Inválido", "Erro", JOptionPane.INFORMATION_MESSAGE);
+//            mtxtCpf.requestFocus();
+//        }
+//        else{
+//            DaoInstrutor.consultar(mtxtCpf.getText());
+//        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -408,8 +503,8 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnSair;
     private javax.swing.JComboBox<String> chcbxEstaCivil;
+    private javax.swing.JComboBox<String> chcbxEstado;
     private javax.swing.JComboBox<String> chcbxSexo;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -442,4 +537,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
+    private DaoInstrutor daoInstrutor=null;
+    private Instrutor instrutor=null;
+    private Conexao conexao=null;
 }
