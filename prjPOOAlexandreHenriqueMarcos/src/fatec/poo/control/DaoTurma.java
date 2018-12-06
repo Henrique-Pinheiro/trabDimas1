@@ -45,7 +45,6 @@ public class DaoTurma {
         try {
             ps = conn.prepareStatement("SELECT * from tb_Turma where " +
                                                  "turma_sigla = ?");
-            
             ps.setString(1, sigla);
             ResultSet rs = ps.executeQuery();
             //System.err.print(rs);
@@ -57,5 +56,28 @@ public class DaoTurma {
              System.out.println(ex.toString());   
         }
         return (t);
+    }
+    
+        public Object retornaAtibuto (String sigla, String atributo) {
+        PreparedStatement ps = null;
+        Object objAtributo = null;
+        try {
+            ps = conn.prepareStatement("SELECT " + atributo + " from tb_Turma where " +
+                                                 "turma_sigla = ?");
+            ps.setString(1, sigla);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                if (atributo.equals("turma_qtd_vagas")){
+                    objAtributo = rs.getInt(atributo);
+                }else{
+                    objAtributo = rs.getString(atributo);
+                }
+                
+            }
+        }
+        catch (SQLException ex) { 
+             System.out.println(ex.toString());   
+        }
+        return objAtributo;
     }
 }

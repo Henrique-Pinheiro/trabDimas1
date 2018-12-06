@@ -72,10 +72,20 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -362,6 +372,14 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private void txtFormacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFormacaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFormacaoActionPerformed
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
      * @param args the command line arguments
