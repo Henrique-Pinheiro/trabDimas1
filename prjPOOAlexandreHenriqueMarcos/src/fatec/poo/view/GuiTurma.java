@@ -7,6 +7,8 @@ package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoTurma;
+import fatec.poo.model.Turma;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -42,7 +44,7 @@ public class GuiTurma extends javax.swing.JFrame {
         lblDataTermino = new javax.swing.JLabel();
         cbxCurso = new javax.swing.JComboBox<>();
         txtSiglaTurma = new javax.swing.JTextField();
-        txtNome = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         txtQtdeVagas = new javax.swing.JTextField();
         cbxPeriodo = new javax.swing.JComboBox<>();
         mtxtDataInicio = new javax.swing.JFormattedTextField();
@@ -65,7 +67,7 @@ public class GuiTurma extends javax.swing.JFrame {
 
         lblSiglaTurma.setText("Sigla da Turma");
 
-        lblNome.setText("Nome");
+        lblNome.setText("Descrição");
 
         lblQtdeVagas.setText("Qtde Vagas");
 
@@ -75,21 +77,50 @@ public class GuiTurma extends javax.swing.JFrame {
 
         lblDataTermino.setText("Data término");
 
-        txtSiglaTurma.setEnabled(false);
+        cbxCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCursoActionPerformed(evt);
+            }
+        });
 
-        txtNome.setEnabled(false);
+        txtSiglaTurma.setEnabled(false);
+        txtSiglaTurma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSiglaTurmaActionPerformed(evt);
+            }
+        });
+
+        txtDescricao.setEnabled(false);
 
         txtQtdeVagas.setEnabled(false);
 
+        cbxPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manha", "Tarde", "Noite" }));
+        cbxPeriodo.setSelectedIndex(-1);
         cbxPeriodo.setEnabled(false);
 
-        mtxtDataInicio.setText("/  /");
+        mtxtDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yy"))));
         mtxtDataInicio.setEnabled(false);
+        mtxtDataInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mtxtDataInicioActionPerformed(evt);
+            }
+        });
 
-        mtxtDataTermino.setText("/  /");
+        mtxtDataTermino.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yy"))));
         mtxtDataTermino.setEnabled(false);
+        mtxtDataTermino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mtxtDataTerminoActionPerformed(evt);
+            }
+        });
 
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("fatec/poo/view/icon/pesq.png")));
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
@@ -101,6 +132,11 @@ public class GuiTurma extends javax.swing.JFrame {
         btnExcluir.setEnabled(false);
 
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,13 +147,13 @@ public class GuiTurma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnConsultar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addGap(33, 33, 33)
                         .addComponent(btnInserir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(42, 42, 42)
                         .addComponent(btnAlterar)
-                        .addGap(18, 18, 18)
+                        .addGap(46, 46, 46)
                         .addComponent(btnExcluir)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(btnSair))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -130,7 +166,7 @@ public class GuiTurma extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtSiglaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNome)))
+                                    .addComponent(txtDescricao)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -168,7 +204,7 @@ public class GuiTurma extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQtdeVagas)
@@ -195,13 +231,84 @@ public class GuiTurma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        conexao = new Conexao("BD1713030","BD1713030");
+        conexao = new Conexao("BD1523042","BD1523042");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         daoTurma = new DaoTurma(conexao.conectar());
-        System.out.print(daoTurma.listarCurso());
-        //cbxCurso.setModel(new DefaultComboBoxModel(daoTurma.listarCurso().toArray()));
+        //System.out.print(daoTurma.listarCurso());
+        cbxCurso.setModel(new DefaultComboBoxModel(daoTurma.listarCurso().toArray()));
+        if(!(daoTurma.listarCurso().isEmpty())){
+            txtSiglaTurma.setEnabled(true);
+        }
     }//GEN-LAST:event_formWindowOpened
+
+    private void txtSiglaTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSiglaTurmaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSiglaTurmaActionPerformed
+
+    private void cbxCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxCursoActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void mtxtDataTerminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mtxtDataTerminoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mtxtDataTerminoActionPerformed
+
+    private void mtxtDataInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mtxtDataInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mtxtDataInicioActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        turma = null;
+        turma = daoTurma.consultar(txtSiglaTurma.getText());
+        if (turma == null){
+            txtSiglaTurma.setEnabled(false);
+            txtDescricao.setEnabled(true);
+            txtDescricao.requestFocus();
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+        else{
+            txtDescricao.setText(turma.getDescricao());
+            txtSiglaTurma.setEnabled(false);
+            txtDescricao.setEnabled(true);
+            //System.err.println();
+            turma.setDataInicio((String)(daoTurma.retornaAtibuto(txtSiglaTurma.getText(), "turma_data_inicio")));
+            mtxtDataInicio.setEnabled(true);
+            mtxtDataInicio.setText(turma.getDataInicio());
+            turma.setDataTermino((String)(daoTurma.retornaAtibuto(txtSiglaTurma.getText(), "turma_data_termino")));
+            mtxtDataTermino.setEnabled(true);
+            mtxtDataTermino.setText(turma.getDataTermino());
+            turma.setQtdVagas((int)(daoTurma.retornaAtibuto(txtSiglaTurma.getText(), "turma_qtd_vagas")));
+            txtQtdeVagas.setEnabled(true);
+            txtQtdeVagas.setText(Integer.toString((turma.getQtdVagas())));
+            turma.setPeriodo((String)(daoTurma.retornaAtibuto(txtSiglaTurma.getText(), "turma_periodo")));
+            mtxtDataTermino.setEnabled(true);
+            //cbxPeriodo.setText(turma.getDataTermino());
+            ArrayList<String> lsPeriodo = new ArrayList<String>();
+            lsPeriodo.add("Manha");
+            lsPeriodo.add("Tarde");
+            lsPeriodo.add("Noite");
+            lsPeriodo.add("Matutino");
+            lsPeriodo.add("Vespertino");
+            lsPeriodo.add("Integeral");
+            lsPeriodo.add("Noturno");
+            cbxPeriodo.setModel(new DefaultComboBoxModel(lsPeriodo.toArray()));
+            cbxPeriodo.setSelectedItem(turma.getPeriodo());
+            cbxPeriodo.setEnabled(true);
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+            txtDescricao.requestFocus();
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -255,10 +362,11 @@ public class GuiTurma extends javax.swing.JFrame {
     private javax.swing.JLabel lblSiglaTurma;
     private javax.swing.JFormattedTextField mtxtDataInicio;
     private javax.swing.JFormattedTextField mtxtDataTermino;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtQtdeVagas;
     private javax.swing.JTextField txtSiglaTurma;
     // End of variables declaration//GEN-END:variables
     private Conexao conexao=null;
     private DaoTurma daoTurma=null;
+    private Turma turma=null;
 }
