@@ -11,6 +11,7 @@ import fatec.poo.model.Instrutor;
 import fatec.poo.model.Pessoa;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -83,7 +84,6 @@ public class GuiInstrutor extends javax.swing.JFrame {
             }
         });
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +91,6 @@ public class GuiInstrutor extends javax.swing.JFrame {
             }
         });
 
-        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -100,15 +99,12 @@ public class GuiInstrutor extends javax.swing.JFrame {
             }
         });
 
-        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,7 +296,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
                         .addGap(62, 62, 62))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnConsultar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                         .addComponent(btnInserir)
                         .addGap(30, 30, 30)
                         .addComponent(btnAlterar)
@@ -366,7 +362,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
                     .addComponent(btnInserir)
@@ -455,10 +451,27 @@ public class GuiInstrutor extends javax.swing.JFrame {
                 
                 instrutor.setSexo((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_sexo")));
                 chcbxSexo.setEnabled(true);
-                //chcbxSexo.setModel(instrutor.getSexo());
-                
+                ArrayList<String> lsSexo = new ArrayList();
+                lsSexo.add("M");
+                lsSexo.add("F");
+                chcbxSexo.setModel(new DefaultComboBoxModel(lsSexo.toArray()));
+                System.err.println(instrutor.getSexo());
+                chcbxSexo.setSelectedItem(instrutor.getSexo());
+
                 instrutor.setEstadoCivil((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_estado_civil")));
-                chcbxSexo.setEnabled(true);
+                chcbxEstaCivil.setEnabled(true);
+                ArrayList<String> lsEstadoCivil = new ArrayList();
+                lsEstadoCivil.add("Solteiro");
+                lsEstadoCivil.add("Casado");
+                lsEstadoCivil.add("Divorciado");
+                lsEstadoCivil.add("Viúvo");
+                lsEstadoCivil.add("Separado");
+                chcbxEstaCivil.setModel(new DefaultComboBoxModel(lsEstadoCivil.toArray()));
+                System.err.println(instrutor.getEstadoCivil());
+                chcbxEstaCivil.setSelectedItem(instrutor.getEstadoCivil());
+
+                //instrutor.setEstadoCivil((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_estado_civil")));
+                //chcbxSexo.setEnabled(true);
                 //chcbxSexo.setModel(instrutor.getEstadoCivil());
                 
                 instrutor.setEndereco((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_endereco")));
@@ -515,9 +528,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
                 lsEstado.add("SE");
                 lsEstado.add("SP");
                 lsEstado.add("TO");
-                
+                chcbxEstado.setModel(new DefaultComboBoxModel(lsEstado.toArray()));
                 System.err.println(instrutor.getEstado());
-                chcbxEstado.setSelectedItem(daoInstrutor.retornaAtibuto(formatedCpf, instrutor.getEstado()));
+                chcbxEstado.setSelectedItem(instrutor.getEstado());
                 
                 instrutor.setTelefone((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_tel_residencial")));
                 mtxtTelResidencial.setEnabled(true);
