@@ -114,7 +114,6 @@ public class GuiTurma extends javax.swing.JFrame {
             }
         });
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("fatec/poo/view/icon/pesq.png")));
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
