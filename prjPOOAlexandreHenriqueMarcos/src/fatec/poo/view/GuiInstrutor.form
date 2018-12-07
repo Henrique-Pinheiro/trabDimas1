@@ -9,6 +9,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -89,7 +92,8 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="chcbxEstado" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="chcbxEstado" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
@@ -216,6 +220,9 @@
         <Property name="text" type="java.lang.String" value="Inserir"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInserirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAlterar">
       <Properties>
@@ -306,7 +313,10 @@
     <Component class="javax.swing.JComboBox" name="chcbxSexo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="2">
+            <StringItem index="0" value="M"/>
+            <StringItem index="1" value="F"/>
+          </StringArray>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -335,7 +345,7 @@
     <Component class="javax.swing.JFormattedTextField" name="mtxtRg">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-          <Format format="##.###.###-#" subtype="-1" type="5"/>
+          <Format format="##.###.###-*" subtype="-1" type="5"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -407,9 +417,8 @@
     <Component class="javax.swing.JFormattedTextField" name="mtxtDataNasc">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format subtype="0" type="1"/>
+          <Format subtype="1" type="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="/  /"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -417,7 +426,13 @@
     <Component class="javax.swing.JComboBox" name="chcbxEstaCivil">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Solteiro"/>
+            <StringItem index="1" value="Casado"/>
+            <StringItem index="2" value="Divorciado"/>
+            <StringItem index="3" value="Vi&#xfa;vo"/>
+            <StringItem index="4" value="Separado"/>
+          </StringArray>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>

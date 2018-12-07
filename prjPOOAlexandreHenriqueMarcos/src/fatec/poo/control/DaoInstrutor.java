@@ -10,11 +10,11 @@ import fatec.poo.model.Instrutor;
 public class DaoInstrutor {
 
     private Connection conn;
-    
+
     public DaoInstrutor(Connection conn) {
-         this.conn = conn;
+        this.conn = conn;
     }
-    
+
     public void inserir(Instrutor instrutor) {
         PreparedStatement ps = null;
         try {
@@ -25,7 +25,7 @@ public class DaoInstrutor {
             ps.setString(4, instrutor.getSexo());
             ps.setString(5, instrutor.getEstadoCivil());
             ps.setString(6, instrutor.getEndereco());
-            ps.setDouble(7, instrutor.getNumero());
+            ps.setString(7, instrutor.getNumero());
             ps.setString(8, instrutor.getBairro());
             ps.setString(9, instrutor.getCEP());
             ps.setString(10, instrutor.getCidade());
@@ -36,26 +36,25 @@ public class DaoInstrutor {
             ps.setString(15, instrutor.getFormacao());
             ps.setString(16, instrutor.getAreAtuacao());
             ps.setString(17, instrutor.getEmail());
-            
-                      
+
             ps.execute();
         } catch (SQLException ex) {
-             System.out.println(ex.toString());   
+            System.out.println(ex.toString());
         }
     }
-    
+
     public void alterar(Instrutor instrutor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE tb_Instrutor set instrutor_nome = ?" +
-                                                 "where instrutor_cpf = ?");
-            
+            ps = conn.prepareStatement("UPDATE tb_Instrutor set instrutor_nome = ?"
+                    + "where instrutor_cpf = ?");
+
             ps.setString(1, instrutor.getNome());
             ps.setString(2, instrutor.getDataNasc());
             ps.setString(3, instrutor.getSexo());
             ps.setString(4, instrutor.getEstadoCivil());
             ps.setString(5, instrutor.getEndereco());
-            ps.setDouble(6, instrutor.getNumero());
+            ps.setString(6, instrutor.getNumero());
             ps.setString(7, instrutor.getBairro());
             ps.setString(8, instrutor.getCEP());
             ps.setString(9, instrutor.getCidade());
@@ -66,45 +65,67 @@ public class DaoInstrutor {
             ps.setString(14, instrutor.getFormacao());
             ps.setString(15, instrutor.getAreAtuacao());
             ps.setString(16, instrutor.getEmail());
-            
-           
+
             ps.execute();
         } catch (SQLException ex) {
-             System.out.println(ex.toString());   
+            System.out.println(ex.toString());
         }
     }
-        
-     public  Instrutor consultar (String CPF) {
+
+    public Instrutor consultar(String CPF) {
+
         Instrutor i = null;
-       
+
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT * from tb_Instrutor where " +
-                                                 "instrutor_cpf = ?");
-            
+            ps = conn.prepareStatement("SELECT * from tb_Instrutor where "
+                    + "instrutor_cpf = ?");
+
             ps.setString(1, CPF);
             ResultSet rs = ps.executeQuery();
-           
+
             if (rs.next() == true) {
-                i = new Instrutor (CPF, rs.getString("instrutor_cpf"));
+                i = new Instrutor(CPF, rs.getString("instrutor_nome"));
             }
-        }
-        catch (SQLException ex) { 
-             System.out.println(ex.toString());   
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
         }
         return (i);
-    }    
-     
-     public void excluir(Instrutor instrutor) {
+    }
+
+    public Object retornaAtibuto(String CPF, String atributo) {
+        PreparedStatement ps = null;
+        Object objAtributo = null;
+        try {
+            ps = conn.prepareStatement("SELECT " + atributo + " from tb_Instrutor where "
+                    + "instrutor_cpf = ?");
+            ps.setString(1, CPF);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                //if (atributo.equals("turma_qtd_vagas")) {
+                    //objAtributo = rs.getInt(atributo);
+                //} 
+                //else {
+                    objAtributo = rs.getString(atributo);
+                //}
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        return objAtributo;
+    }
+
+    public void excluir(Instrutor instrutor) {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("DELETE FROM tb_Instrutor where instrutor_cpf = ?");
-            
+
             ps.setString(1, instrutor.getCPF());
-                      
+
             ps.execute();
         } catch (SQLException ex) {
-             System.out.println(ex.toString());   
+            System.out.println(ex.toString());
         }
     }
 }

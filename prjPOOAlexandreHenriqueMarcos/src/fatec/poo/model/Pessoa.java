@@ -6,7 +6,7 @@ public class Pessoa {
     String Endereco;
     String Bairro;
     private String Cidade, Estado, CEP, Telefone, Celular, Sexo, EstadoCivil, RG, CPF, Email;
-    private int Numero;
+    private String Numero;
 
     public Pessoa(String Nome, String CPF) {
         this.Nome = Nome;
@@ -69,7 +69,7 @@ public class Pessoa {
         this.Email = Email;
     }
 
-    public void setNumero(int Numero) {
+    public void setNumero(String Numero) {
         this.Numero = Numero;
     }
 
@@ -125,13 +125,15 @@ public class Pessoa {
         return Email;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return Numero;
     }
 
     public String getNome() {
         return Nome;
     }
+    
+    
     
     
     

@@ -10,6 +10,7 @@ import fatec.poo.control.DaoInstrutor;
 import fatec.poo.model.Instrutor;
 import fatec.poo.model.Pessoa;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -76,6 +77,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar Instrutor");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
@@ -88,6 +94,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -131,6 +142,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        chcbxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
         chcbxSexo.setEnabled(false);
 
         txtEndereco.setEnabled(false);
@@ -145,7 +157,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
         });
 
         try {
-            mtxtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
+            mtxtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-*")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -178,11 +190,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
         jLabel17.setText("Area de Atuação");
 
-        mtxtDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        mtxtDataNasc.setText("/  /");
+        mtxtDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         mtxtDataNasc.setToolTipText("");
         mtxtDataNasc.setEnabled(false);
 
+        chcbxEstaCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro", "Casado", "Divorciado", "Viúvo", "Separado" }));
         chcbxEstaCivil.setEnabled(false);
 
         txtNumero.setEnabled(false);
@@ -279,7 +291,8 @@ public class GuiInstrutor extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chcbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(chcbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -383,70 +396,181 @@ public class GuiInstrutor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFormacaoActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-       String teste;
-        teste = mtxtCpf.getText();
-        System.out.println(teste);
         String formatedCpf = mtxtCpf.getText().replace(".", "");
         formatedCpf = formatedCpf.replace("-", "");
-        System.err.print(formatedCpf);
-        if (Pessoa.validarCPF(mtxtCpf.getText()) == false){
-            JOptionPane.showMessageDialog (null, "CPF Inválido", "Erro", JOptionPane.INFORMATION_MESSAGE);
-            
-       instrutor = null;
-       instrutor = daoInstrutor.consultar(mtxtCpf.getText());
-       
-       if (instrutor == null){
-           mtxtCpf.setEnabled(false);
-           txtNome.setEnabled(true);
-           mtxtDataNasc.setEnabled(true);
-           chcbxSexo.setEnabled(true);
-           chcbxEstaCivil.setEnabled(true);
-           txtEndereco.setEnabled(true);
-           txtNumero.setEnabled(true);
-           txtBairro.setEnabled(true);
-           mtxtCep.setEnabled(true);
-           txtCidade.setEnabled(true);
-           chcbxEstado.setEnabled(true);
-           mtxtTelResidencial.setEnabled(true);
-           mtxtTelCelular.setEnabled(true);
-           txtFormacao.setEnabled(true);
-           txtAreaAtuacao.setEnabled(true);
-           txtEmail.setEnabled(true);
-           txtNome.requestFocus();
-           
-           btnConsultar.setEnabled(false);
-           btnInserir.setEnabled(true);
-           btnAlterar.setEnabled(false);
-           btnExcluir.setEnabled(false);
-       }
-       else{
-          txtNome.setText(instrutor.getNome());
-       
-          mtxtCpf.setEnabled(false); 
-          txtNome.setEnabled(true);
-          mtxtDataNasc.setEnabled(true);
-          chcbxSexo.setEnabled(true);
-          chcbxEstaCivil.setEnabled(true);
-          txtEndereco.setEnabled(true);
-          txtNumero.setEnabled(true);
-          txtBairro.setEnabled(true);
-          mtxtCep.setEnabled(true);
-          txtCidade.setEnabled(true);
-          chcbxEstado.setEnabled(true);
-          mtxtTelResidencial.setEnabled(true);
-          mtxtTelCelular.setEnabled(true);
-          txtFormacao.setEnabled(true);
-          txtAreaAtuacao.setEnabled(true);
-          txtEmail.setEnabled(true);
-          
-          txtNome.requestFocus();
-          
-          btnConsultar.setEnabled(false);
-          btnInserir.setEnabled(false);
-          btnAlterar.setEnabled(true);
-          btnExcluir.setEnabled(true);
-       }
-       }
+        //System.err.print(formatedCpf);
+        if (Pessoa.validarCPF(formatedCpf) == false) {
+            JOptionPane.showMessageDialog(null, "CPF Inválido", "Erro", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+
+            instrutor = null;
+            instrutor = daoInstrutor.consultar(formatedCpf);
+
+            if (instrutor == null) {
+                mtxtCpf.setEnabled(false);
+                txtNome.setEnabled(true);
+                mtxtDataNasc.setEnabled(true);
+                chcbxSexo.setEnabled(true);
+                chcbxEstaCivil.setEnabled(true);
+                txtEndereco.setEnabled(true);
+                txtNumero.setEnabled(true);
+                txtBairro.setEnabled(true);
+                mtxtCep.setEnabled(true);
+                txtCidade.setEnabled(true);
+                chcbxEstado.setEnabled(true);
+                mtxtTelResidencial.setEnabled(true);
+                mtxtTelCelular.setEnabled(true);
+                txtFormacao.setEnabled(true);
+                txtAreaAtuacao.setEnabled(true);
+                txtEmail.setEnabled(true);
+                mtxtRg.setEnabled(true);
+                txtNome.requestFocus();
+
+                btnConsultar.setEnabled(false);
+                btnInserir.setEnabled(true);
+                btnAlterar.setEnabled(false);
+                btnExcluir.setEnabled(false);
+            } else {
+
+                mtxtCpf.setEnabled(false);
+                txtNome.setEnabled(true);
+                mtxtDataNasc.setEnabled(true);
+                chcbxSexo.setEnabled(true);
+                chcbxEstaCivil.setEnabled(true);
+                txtEndereco.setEnabled(true);
+                txtNumero.setEnabled(true);
+                txtBairro.setEnabled(true);
+                mtxtCep.setEnabled(true);
+                txtCidade.setEnabled(true);
+                chcbxEstado.setEnabled(true);
+                mtxtTelResidencial.setEnabled(true);
+                mtxtTelCelular.setEnabled(true);
+                txtFormacao.setEnabled(true);
+                txtAreaAtuacao.setEnabled(true);
+                txtEmail.setEnabled(true);
+                
+                instrutor.setDataNasc((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_data_nascimento")));
+                mtxtDataNasc.setEnabled(true);
+                mtxtDataNasc.setText(instrutor.getDataNasc());
+                
+                instrutor.setSexo((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_sexo")));
+                chcbxSexo.setEnabled(true);
+                //chcbxSexo.setModel(instrutor.getSexo());
+                
+                instrutor.setEstadoCivil((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_estado_civil")));
+                chcbxSexo.setEnabled(true);
+                //chcbxSexo.setModel(instrutor.getEstadoCivil());
+                
+                instrutor.setEndereco((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_endereco")));
+                txtEndereco.setEnabled(true);
+                txtEndereco.setText(instrutor.getEndereco());
+                
+                instrutor.setNome((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_nome")));
+                txtNome.setEnabled(true);
+                txtNome.setText(instrutor.getNome());
+                
+                instrutor.setNumero((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_numero")));
+                txtNumero.setEnabled(true);
+                txtNumero.setText(instrutor.getNumero());
+                
+                instrutor.setBairro((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_bairro")));
+                txtBairro.setEnabled(true);
+                txtBairro.setText(instrutor.getBairro());
+                
+                instrutor.setCEP((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_cep")));
+                mtxtCep.setEnabled(true);
+                mtxtCep.setText(instrutor.getCEP());
+                
+                instrutor.setCidade((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_cidade")));
+                txtCidade.setEnabled(true);
+                txtCidade.setText(instrutor.getCidade());
+                
+                instrutor.setEstado((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_estado")));
+                chcbxEstado.setEnabled(true);
+                ArrayList<String> lsEstado = new ArrayList();
+                lsEstado.add("AC");
+                lsEstado.add("AL");
+                lsEstado.add("AM");
+                lsEstado.add("AP");
+                lsEstado.add("BA");
+                lsEstado.add("CE");
+                lsEstado.add("DF");
+                lsEstado.add("ES");
+                lsEstado.add("GO");
+                lsEstado.add("MA");
+                lsEstado.add("MG");
+                lsEstado.add("MS");
+                lsEstado.add("MT");
+                lsEstado.add("PA");
+                lsEstado.add("PB");
+                lsEstado.add("PE");
+                lsEstado.add("PI");
+                lsEstado.add("PR");
+                lsEstado.add("RJ");
+                lsEstado.add("RN");
+                lsEstado.add("RO");
+                lsEstado.add("RR");
+                lsEstado.add("RS");
+                lsEstado.add("SC");
+                lsEstado.add("SE");
+                lsEstado.add("SP");
+                lsEstado.add("TO");
+                
+                System.err.println(instrutor.getEstado());
+                chcbxEstado.setSelectedItem(daoInstrutor.retornaAtibuto(formatedCpf, instrutor.getEstado()));
+                
+                instrutor.setTelefone((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_tel_residencial")));
+                mtxtTelResidencial.setEnabled(true);
+                mtxtTelResidencial.setText(instrutor.getTelefone());
+                
+                instrutor.setRG((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_rg")));
+                mtxtRg.setEnabled(true);
+                mtxtRg.setText(instrutor.getRG());
+                
+                instrutor.setCelular((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_celular")));
+                mtxtTelCelular.setEnabled(true);
+                mtxtTelCelular.setText(instrutor.getCelular());
+                
+                instrutor.setFormacao((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_formacao")));
+                txtFormacao.setEnabled(true);
+                txtFormacao.setText(instrutor.getFormacao());
+                
+                instrutor.setAreAtuacao((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_area_atuacao")));
+                txtAreaAtuacao.setEnabled(true);
+                txtAreaAtuacao.setText(instrutor.getAreAtuacao());
+                
+                instrutor.setEmail((String) (daoInstrutor.retornaAtibuto(formatedCpf, "instrutor_email")));
+                txtEmail.setEnabled(true);
+                txtEmail.setText(instrutor.getEmail());
+                
+                
+                
+
+//                txtNome.setText(instrutor.getNome());
+//                mtxtCpf.setText(instrutor.getCPF());
+//                mtxtDataNasc.setText(instrutor.getDataNasc());
+//                //chcbxSexo.setText(instrutor.getSexo());
+//                //chcbxEstaCivil.setText(instrutor.getEstadoCivil());
+//                txtEndereco.setText(instrutor.getEndereco());
+//                txtNumero.setText(instrutor.getNumero());
+//                txtBairro.setText(instrutor.getBairro());
+//                mtxtCep.setText(instrutor.getCEP());
+//                txtCidade.setText(instrutor.getCidade());
+//                //chcbxEstado.setText(instrutor.getEstado());
+//                mtxtTelResidencial.setText(instrutor.getTelefone());
+//                mtxtTelCelular.setText(instrutor.getCelular());
+//                txtFormacao.setText(instrutor.getFormacao());
+//                txtAreaAtuacao.setText(instrutor.getAreAtuacao());
+//                txtEmail.setText(instrutor.getEmail());
+
+                txtNome.requestFocus();
+
+                btnConsultar.setEnabled(false);
+                btnInserir.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+            }
+        }
 //        
 //        if (Pessoa.validarCPF(mtxtCpf.getText()) == false){
 //            JOptionPane.showMessageDialog (null, "CPF Inválido", "Erro", JOptionPane.INFORMATION_MESSAGE);
@@ -460,7 +584,18 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
-    
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("BD1523042", "BD1523042");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        daoInstrutor = new DaoInstrutor(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInserirActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -537,7 +672,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
-    private DaoInstrutor daoInstrutor=null;
-    private Instrutor instrutor=null;
-    private Conexao conexao=null;
+    private DaoInstrutor daoInstrutor = null;
+    private Instrutor instrutor = null;
+    private Conexao conexao = null;
 }
