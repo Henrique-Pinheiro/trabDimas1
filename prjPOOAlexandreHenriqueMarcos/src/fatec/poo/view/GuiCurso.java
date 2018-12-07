@@ -5,6 +5,10 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoCurso;
+import fatec.poo.model.Curso;
+
 /**
  *
  * @author 0030481713039
@@ -47,6 +51,11 @@ public class GuiCurso extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lblSiglaCurso.setText("Sigla Curso");
         lblSiglaCurso.setName(""); // NOI18N
@@ -63,12 +72,16 @@ public class GuiCurso extends javax.swing.JFrame {
         lblProgramaCurso.setText("Programa do curso");
         lblProgramaCurso.setName(""); // NOI18N
 
+        txtProgramaCurso.setEnabled(false);
         txtProgramaCurso.setName(""); // NOI18N
 
+        txtValorCurso.setEnabled(false);
         txtValorCurso.setName(""); // NOI18N
 
+        txtCargaHoraria.setEnabled(false);
         txtCargaHoraria.setName(""); // NOI18N
 
+        txtNomeCurso.setEnabled(false);
         txtNomeCurso.setName(""); // NOI18N
 
         txtSiglaCurso.setName(""); // NOI18N
@@ -78,8 +91,15 @@ public class GuiCurso extends javax.swing.JFrame {
 
         jLabel7.setText("Valor hora Instrutor");
 
+        txtValorHoraInstrutor.setEnabled(false);
+
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
@@ -187,6 +207,58 @@ public class GuiCurso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("BD1523042","BD1523042");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        daoCurso = new DaoCurso(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+       curso = null;
+       curso = daoCurso.consultar(txtSiglaCurso.getText());
+       
+       if(curso == null){
+           txtSiglaCurso.setEnabled(false);
+           txtNomeCurso.setEnabled(true);
+           txtCargaHoraria.setEnabled(true);
+           txtValorCurso.setEnabled(true);
+           txtProgramaCurso.setEnabled(true);
+           txtValorHoraInstrutor.setEnabled(true);
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(true);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+       }
+       
+       else{
+          txtNomeCurso.setText(curso.getNome());
+          txtCargaHoraria.setText(Integer.toString(curso.getCargaHoraria()));
+          txtValorCurso.setText(Double.toString(curso.getValor()));
+          txtValorHoraInstrutor.setText(curso.getValorHoraInstrutor());
+          txtProgramaCurso.setText(curso.getPrograma());
+          
+          txtSiglaCurso.setEnabled(false);
+          txtNomeCurso.setEnabled(true);
+          txtCargaHoraria.setEnabled(true);
+          txtValorCurso.setEnabled(true);
+          txtProgramaCurso.setEnabled(true);
+          txtValorHoraInstrutor.setEnabled(true);
+          
+          txtNomeCurso.requestFocus();
+          txtCargaHoraria.requestFocus();
+          txtValorCurso.requestFocus();
+          txtValorHoraInstrutor.requestFocus();
+          txtProgramaCurso.requestFocus();
+          
+          btnConsultar.setEnabled(false);
+          btnInserir.setEnabled(false);
+          btnAlterar.setEnabled(true);
+          btnExcluir.setEnabled(true);
+       }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -242,4 +314,7 @@ public class GuiCurso extends javax.swing.JFrame {
     private javax.swing.JTextField txtValorCurso;
     private javax.swing.JTextField txtValorHoraInstrutor;
     // End of variables declaration//GEN-END:variables
+    private DaoCurso daoCurso=null;
+    private Curso curso=null;
+    private Conexao conexao=null;
 }
