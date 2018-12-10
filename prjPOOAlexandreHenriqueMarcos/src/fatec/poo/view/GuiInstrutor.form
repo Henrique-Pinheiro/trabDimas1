@@ -9,6 +9,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -42,22 +45,26 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtNome" max="32767" attributes="0"/>
-                                  <Component id="txtEndereco" alignment="0" pref="256" max="32767" attributes="0"/>
-                                  <Component id="txtBairro" pref="256" max="32767" attributes="0"/>
-                                  <Component id="txtEmail" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txtNome" max="32767" attributes="0"/>
+                                          <Component id="txtEndereco" alignment="0" pref="256" max="32767" attributes="0"/>
+                                          <Component id="txtBairro" pref="256" max="32767" attributes="0"/>
+                                          <Component id="txtEmail" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel16" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -85,7 +92,8 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jComboBox2" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="chcbxEstado" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
@@ -99,7 +107,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnConsultar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <EmptySpace pref="134" max="32767" attributes="0"/>
                       <Component id="btnInserir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btnAlterar" min="-2" max="-2" attributes="0"/>
@@ -155,7 +163,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtCidade" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chcbxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="mtxtTelResidencial" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -179,7 +187,7 @@
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnConsultar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnInserir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -195,9 +203,6 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnConsultar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/pesq.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Consultar"/>
       </Properties>
       <Events>
@@ -206,9 +211,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnInserir">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/add.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Inserir"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -218,29 +220,23 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnAlterar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/Alterar.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnExcluir">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/Eraser.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSair">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/exit.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -302,7 +298,10 @@
     <Component class="javax.swing.JComboBox" name="chcbxSexo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="2">
+            <StringItem index="0" value="M"/>
+            <StringItem index="1" value="F"/>
+          </StringArray>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -331,7 +330,7 @@
     <Component class="javax.swing.JFormattedTextField" name="mtxtRg">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-          <Format format="##.###.###-#" subtype="-1" type="5"/>
+          <Format format="##.###.###-*" subtype="-1" type="5"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -374,7 +373,7 @@
         <Property name="text" type="java.lang.String" value="Estado"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox2">
+    <Component class="javax.swing.JComboBox" name="chcbxEstado">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
@@ -403,9 +402,8 @@
     <Component class="javax.swing.JFormattedTextField" name="mtxtDataNasc">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format subtype="0" type="1"/>
+          <Format subtype="1" type="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="/  /"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -413,7 +411,13 @@
     <Component class="javax.swing.JComboBox" name="chcbxEstaCivil">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Solteiro"/>
+            <StringItem index="1" value="Casado"/>
+            <StringItem index="2" value="Divorciado"/>
+            <StringItem index="3" value="Vi&#xfa;vo"/>
+            <StringItem index="4" value="Separado"/>
+          </StringArray>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
