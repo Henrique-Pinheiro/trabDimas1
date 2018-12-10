@@ -54,6 +54,42 @@ public class Turma {
     public void setInstrutor(Instrutor instrutor) {
         this.instrutor = instrutor;
     }
+
+    public String getSiglaTurma() {
+        return siglaTurma;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getDataInicio() {
+        return dataInicio;
+    }
+
+    public String getDataTermino() {
+        return dataTermino;
+    }
+
+    public String getPeriodo() {
+        return Periodo;
+    }
+
+    public int getQtdVagas() {
+        return qtdVagas;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public Instrutor getInstrutor() {
+        return instrutor;
+    }
+
+    public ArrayList<Matricula> getMatriculas() {
+        return matriculas;
+    }
     
     public void EmitirListaFrequencia(){
         
