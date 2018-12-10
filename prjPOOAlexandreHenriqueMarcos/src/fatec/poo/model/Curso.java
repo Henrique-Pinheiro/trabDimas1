@@ -18,6 +18,50 @@ public class Curso {
         turmas = new ArrayList<Turma>();
     }
 
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setTurmas(ArrayList<Turma> turmas) {
+        this.turmas = turmas;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public String getDataVigencia() {
+        return dataVigencia;
+    }
+
+    public String getValorHoraInstrutor() {
+        return valorHoraInstrutor;
+    }
+
+    public String getPrograma() {
+        return programa;
+    }
+
+    public ArrayList<Turma> getTurmas() {
+        return turmas;
+    }
+
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
