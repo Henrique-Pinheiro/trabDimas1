@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DaoCurso {
     
@@ -12,6 +13,22 @@ public class DaoCurso {
 
     public DaoCurso(Connection conn) {
         this.conn = conn;
+    }
+    
+    public ArrayList<String> listarTurma(){
+        PreparedStatement ps = null;
+        ArrayList<String> ls = new ArrayList<String>();
+        try{
+            ps = conn.prepareStatement("SELECT * FROM tb_Turma");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+               ls.add(rs.getString("turma_sigla"));
+            }
+        }
+        catch (SQLException ex) { 
+             System.out.println(ex.toString());   
+        }
+        return ls;
     }
     
     public Curso consultar(String sigla){

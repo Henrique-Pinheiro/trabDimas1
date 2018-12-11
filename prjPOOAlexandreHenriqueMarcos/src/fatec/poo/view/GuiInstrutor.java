@@ -140,6 +140,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
         chcbxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
         chcbxSexo.setEnabled(false);
+        chcbxSexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chcbxSexoActionPerformed(evt);
+            }
+        });
 
         txtEndereco.setEnabled(false);
 
@@ -608,6 +613,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void chcbxSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chcbxSexoActionPerformed
+    }//GEN-LAST:event_chcbxSexoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
