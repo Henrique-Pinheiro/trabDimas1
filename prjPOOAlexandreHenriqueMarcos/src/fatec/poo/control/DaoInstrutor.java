@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 import fatec.poo.model.Instrutor;
+import java.util.ArrayList;
 
 public class DaoInstrutor {
 
@@ -13,6 +14,22 @@ public class DaoInstrutor {
 
     public DaoInstrutor(Connection conn) {
         this.conn = conn;
+    }
+    
+    public ArrayList<String> listarInstrutor(){
+        PreparedStatement ps = null;
+        ArrayList<String> ls = new ArrayList<String>();
+        try{
+            ps = conn.prepareStatement("SELECT * FROM tb_Instrutor");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+               ls.add(rs.getString("instrutor_nome"));
+            }
+        }
+        catch (SQLException ex) { 
+             System.out.println(ex.toString());   
+        }
+        return ls;
     }
 
     public void inserir(Instrutor instrutor) {
