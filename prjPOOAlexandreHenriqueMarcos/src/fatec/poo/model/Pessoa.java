@@ -134,9 +134,6 @@ public class Pessoa {
     }
     
     
-    
-    
-    
     public static boolean validarCPF(String CPF) {
         int d1, d2;
         int digito1, digito2, resto;

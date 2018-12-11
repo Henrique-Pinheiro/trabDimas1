@@ -72,6 +72,11 @@ public class GuiCurso extends javax.swing.JFrame {
         txtNomeCurso.setName(""); // NOI18N
 
         txtSiglaCurso.setName(""); // NOI18N
+        txtSiglaCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSiglaCursoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Data de vigência");
         jLabel6.setName("lblDataVigencia"); // NOI18N
@@ -192,9 +197,15 @@ public class GuiCurso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void txtSiglaCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSiglaCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSiglaCursoActionPerformed
+
 
     /**
      * @param args the command line arguments
