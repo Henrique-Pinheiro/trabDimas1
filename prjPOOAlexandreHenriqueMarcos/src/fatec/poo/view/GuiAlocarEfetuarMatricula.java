@@ -7,9 +7,13 @@ package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCurso;
+import fatec.poo.control.DaoMatricula;
 import fatec.poo.control.DaoTurma;
+import fatec.poo.model.Aluno;
 import fatec.poo.model.Curso;
 import fatec.poo.model.Turma;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -34,7 +38,6 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         lblDtMatr = new javax.swing.JLabel();
         lblCurso = new javax.swing.JLabel();
         lblTurma = new javax.swing.JLabel();
@@ -91,7 +94,14 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
             }
         });
 
+        cbxCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCursoActionPerformed(evt);
+            }
+        });
+
         cbxTurma.setToolTipText("");
+        cbxTurma.setEnabled(false);
 
         try {
             mtxtCpfAluno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -116,10 +126,10 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
         txtNome.setEnabled(false);
 
         jPanel1.setToolTipText("Pagamento");
+        jPanel1.setEnabled(false);
 
         lblPagamento.setText("Pagamento");
 
-        rbtnAVista.setSelected(true);
         rbtnAVista.setText("A Vista");
         rbtnAVista.setEnabled(false);
         rbtnAVista.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +140,11 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
 
         rbtnParcelado.setText("Parcelado");
         rbtnParcelado.setEnabled(false);
+        rbtnParcelado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnParceladoActionPerformed(evt);
+            }
+        });
 
         lblAgencia.setText("Agência");
         lblAgencia.setEnabled(false);
@@ -231,7 +246,6 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
                 .addGap(0, 19, Short.MAX_VALUE))
         );
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,20 +253,21 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
             }
         });
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
 
-        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
 
-        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -286,7 +301,7 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
                                 .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 102, Short.MAX_VALUE)
+                        .addGap(0, 196, Short.MAX_VALUE)
                         .addComponent(btnConsultar)
                         .addGap(18, 18, 18)
                         .addComponent(btnInserir)
@@ -344,21 +359,67 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorActionPerformed
 
-    private void rbtnAVistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAVistaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnAVistaActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         conexao = new Conexao("BD1523042","BD1523042");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
-        daoCurso = new DaoCurso(conexao.conectar());
         daoTurma = new DaoTurma(conexao.conectar());
+        daoCurso = new DaoCurso(conexao.conectar());
+        daoMatricula = new DaoMatricula(conexao.conectar());
+        cbxCurso.setModel(new DefaultComboBoxModel(daoTurma.listarCurso().toArray()));
+        cbxCurso.setSelectedIndex(-1);
+        ButtonGroup group = new ButtonGroup();
+        group.add(rbtnAVista);
+        group.add(rbtnParcelado);
     }//GEN-LAST:event_formWindowOpened
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void cbxCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCursoActionPerformed
+        String cursoSelecionado = (String) cbxCurso.getSelectedItem();
+        txtValor.setText((String) daoMatricula.retornaAtibutoCurso(cursoSelecionado, "curso_valor"));
+        if (cbxCurso.getSelectedItem() != null){
+            mtxtCpfAluno.setEnabled(true);
+            rbtnAVista.setEnabled(true);
+            rbtnParcelado.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_cbxCursoActionPerformed
+
+    private void rbtnAVistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAVistaActionPerformed
+            if(rbtnAVista.isSelected()){
+                txtAgencia.setEnabled(true);
+                txtNoCheque.setEnabled(true);
+                mtxtDtPagto.setEnabled(true);
+                txtTxJuros.setEnabled(false);
+                txtQtdeMensalidades.setEnabled(false);
+                mtxtDtPrimVencto.setEnabled(false);
+            }
+    }//GEN-LAST:event_rbtnAVistaActionPerformed
+
+    private void rbtnParceladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnParceladoActionPerformed
+        if(rbtnParcelado.isSelected()){
+            txtAgencia.setEnabled(false);
+            txtNoCheque.setEnabled(false);
+            mtxtDtPagto.setEnabled(false);
+            txtTxJuros.setEnabled(true);
+            txtQtdeMensalidades.setEnabled(true);
+            mtxtDtPrimVencto.setEnabled(true);
+        }
+    }//GEN-LAST:event_rbtnParceladoActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+           if(mtxtCpfAluno.getText() != null){
+               String CPF = mtxtCpfAluno.getText();
+               String formatedCpf = CPF.replace(".", "");
+               formatedCpf = formatedCpf.replace("-", "");
+               txtNome.setText((String)(daoMatricula.retornaAtibutoAluno(formatedCpf, "aluno_nome")));
+           }else{
+               System.err.println("FAVOR INSERIR CPF");
+           }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,7 +469,6 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnSair;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbxCurso;
     private javax.swing.JComboBox<String> cbxTurma;
     private javax.swing.JLabel jLabel1;
@@ -443,4 +503,6 @@ public class GuiAlocarEfetuarMatricula extends javax.swing.JDialog {
     private DaoTurma daoTurma=null;
     private Turma turma=null;
     private Conexao conexao=null;
+    private DaoMatricula daoMatricula=null;
+    private Aluno aluno = null;
 }
